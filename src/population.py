@@ -36,6 +36,7 @@ class Population:
 
     # Determines if the termination condition has been met
     def evaluate(self, x_coord, y_coord):
+        print(len(self.mating_pool))
         plotter.plot_path(x_coord, y_coord, self.best)
         plotter.draw_path()
         return False  # Not met
@@ -54,9 +55,9 @@ class Population:
 
     # Mating pool of selected individuals creates a new population
     def select(self):
-        self.roulette_wheel()
+        self.roulette_wheel_selection()
 
-    def roulette_wheel(self):
+    def roulette_wheel_selection(self):
         self.mating_pool = []
 
         longest_tour = max(self.population).fitness
@@ -100,7 +101,7 @@ class Population:
 
         self.best = min(self.mating_pool).genes
 
-    def tournament(self):
+    def tournament_selection(self):
         self.mating_pool = []
 
         tournament_size = 20
@@ -112,7 +113,7 @@ class Population:
 
         self.best = min(self.mating_pool).genes
 
-    def truncation(self):
+    def truncation_selection(self):
         truncation_size = 100  # Top n members
         self.population.sort()
         self.mating_pool = self.population[:truncation_size]

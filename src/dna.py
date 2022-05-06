@@ -14,9 +14,9 @@ class DNA:
             self.genes[a], self.genes[b] = self.genes[b], self.genes[a]
 
     def cross(self, other, city_count):
-        return self.cycle(other, city_count)
+        return self.cycle_crossover(other, city_count)
 
-    def partially_mapped(self, other, city_count):
+    def partially_mapped_crossover(self, other, city_count):
         p1_segment = self.genes[1:-1]
         p2_segment = other.genes[1:-1]
         p1_idx = [0]*city_count  # Easy way to init array
@@ -42,7 +42,7 @@ class DNA:
 
         return [0] + child + [0]
 
-    def order(self, other, city_count):
+    def order_crossover(self, other, city_count):
         p1_segment = self.genes[1:-1]
         p2_segment = other.genes[1:-1]
         p1_idx = [0]*city_count  # Easy way to init array
@@ -73,7 +73,7 @@ class DNA:
 
         return [0] + child + [0]
 
-    def cycle(self, other, city_count):
+    def cycle_crossover(self, other, city_count):
         p1_segment = self.genes[1:-1]
         p2_segment = other.genes[1:-1]
         p1_idx = [0]*city_count  # Easy way to init array
