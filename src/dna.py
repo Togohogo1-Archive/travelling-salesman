@@ -9,12 +9,11 @@ class DNA:
 
     def mutate(self, mutation_rate, city_count):
         if random() < mutation_rate:
-            a = randint(1, city_count-1)
-            b = randint(1, city_count-1)
+            a, b = sample(range(1, city_count), 2)
             self.genes[a], self.genes[b] = self.genes[b], self.genes[a]
 
     def cross(self, other, city_count):
-        return self.cycle_crossover(other, city_count)
+        return self.partially_mapped_crossover(other, city_count)
 
     def partially_mapped_crossover(self, other, city_count):
         p1_segment = self.genes[1:-1]

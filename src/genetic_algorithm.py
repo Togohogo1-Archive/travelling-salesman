@@ -6,19 +6,5 @@ def run(x_coord, y_coord, dist_from, city_count):
 
     while True:
         population.select()
-        population.evaluate(x_coord, y_coord)
-        population.crossover(dist_from, city_count)
-
-
-
-    '''
-    Initialize
-    While true
-        Evaluate
-        If (termination condition) break
-        Select
-        Crossover
-        Mutate
-    Output best result
-    '''
-    return
+        population.evaluate(dist_from, x_coord, y_coord)
+        population.crossover(dist_from, city_count)  # And mutate

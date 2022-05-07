@@ -35,11 +35,11 @@ class Population:
             self.population.append(DNA(tour_dist, tour))
 
     # Determines if the termination condition has been met
-    def evaluate(self, x_coord, y_coord):
-        print(len(self.mating_pool))
-        plotter.plot_path(x_coord, y_coord, self.best)
+    def evaluate(self, dist_from, x_coord, y_coord):
+        self.generation += 1
+        title = f"Generation: {self.generation}, Distance: {self.calc_fitness(dist_from, self.best):.2f}"
+        plotter.plot_path(x_coord, y_coord, self.best, title)
         plotter.draw_path()
-        return False  # Not met
 
     # Creating children chromosomes from parents
     def crossover(self, dist_from, city_count):
@@ -55,7 +55,7 @@ class Population:
 
     # Mating pool of selected individuals creates a new population
     def select(self):
-        self.roulette_wheel_selection()
+        self.stochastic_universal_sampling()
 
     def roulette_wheel_selection(self):
         self.mating_pool = []

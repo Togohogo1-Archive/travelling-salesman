@@ -3,10 +3,11 @@ from math import dist
 from random import sample
 import plotter
 import genetic_algorithm
+import simulated_annealing
 import brute_force
 import dp
 
-city_count = 10
+city_count = 20
 max_dist = 1000
 
 # Initializing coordinates
@@ -24,6 +25,5 @@ for c1 in range(city_count):
         dist_from[c1][c2] = dist(c1_point, c2_point)
 
 # pprint(dist_from)
-print(x_coord[0], y_coord[0])
-brute_force.run(x_coord, y_coord, dist_from, city_count)
+simulated_annealing.run(x_coord, y_coord, dist_from, city_count)
 plotter.show_final()
