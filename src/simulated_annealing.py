@@ -18,7 +18,7 @@ def evaluate(dist_from, best_tour, x_coord, y_coord, temp):
     plotter.draw_path()
 
 
-# Swap 2 cities
+# Section of path replaced with same cities running in opposite order
 def neighbour(best_tour, city_count):
     next_tour = best_tour[:]
     l, r = sorted(sample(range(1, city_count+1), 2))
