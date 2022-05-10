@@ -1,4 +1,4 @@
-from math import exp
+from numpy import exp  # Avoid overflow
 from random import sample, random
 import plotter
 
@@ -22,7 +22,7 @@ def evaluate(dist_from, best_tour, x_coord, y_coord, temp):
 def neighbour(best_tour, city_count):
     next_tour = best_tour[:]
     l, r = sorted(sample(range(1, city_count+1), 2))
-    next_tour[l:r] = list(reversed(next_tour[l:r]))
+    next_tour[l:r] = next_tour[l:r][::-1]
     return next_tour
 
 
@@ -36,7 +36,7 @@ def metropolis(dist_from, old, new, temp):
 
 
 def run(x_coord, y_coord, dist_from, city_count):
-    t0 = 100
+    t0 = 1000
     best_tour = [0] + sample(range(1, city_count), city_count-1) + [0]
 
     while t0 > 1:
