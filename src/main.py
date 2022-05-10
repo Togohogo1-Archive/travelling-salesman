@@ -7,7 +7,7 @@ import simulated_annealing
 import brute_force
 import dp
 
-city_count = 20
+city_count = 42
 max_dist = 1000
 
 # Initializing coordinates
