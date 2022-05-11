@@ -18,14 +18,13 @@ class Population:
     def calc_fitness(self, dist_from, cities):
         return sum(dist_from[c1][c2] for c1, c2 in zip(cities[1:], cities[:-1]))
 
-    # Generate random population of individual tours
+    # Generates random population of individual tours
     def initialize(self, dist_from, city_count):
         for _ in range(self.pop_size):
             tour = [0] + sample(range(1, city_count), city_count-1) + [0]
             tour_dist = self.calc_fitness(dist_from, tour)
             self.population.append(DNA(tour_dist, tour))
 
-    # Determines if the termination condition has been met
     def evaluate(self, dist_from, x_coord, y_coord):
         self.generation += 1
         title = f"Generation: {self.generation}, Distance: {self.calc_fitness(dist_from, self.best):.2f}"
@@ -37,10 +36,9 @@ class Population:
         for i in range(self.pop_size):
             parent1 = choice(self.mating_pool)
             parent2 = choice(self.mating_pool)
-            offspring = parent1.cross(parent2, city_count)
+            offspring = parent1.cross(parent2, city_count)  # Intermediate step, tour
             child = DNA(self.calc_fitness(dist_from, offspring), offspring)
 
-            # Mutations refer to accidental errors when copying genetic information from parents
             child.mutate(self.mutation_rate, city_count)
             self.population[i] = child
 
@@ -55,10 +53,10 @@ class Population:
         shortest_tour = min(self.population).fitness
 
         for dna in self.population:
-            # Smaller distances are optimal
+            # Smaller distances have larger fitness
             norm_fitness = 1 - self.normalize(dna.fitness, shortest_tour, longest_tour)
 
-            # Better than adding multiple of the same elements in the mating pool
+            # Chance of being selected determined by normalized fitness values, doesn't require extra space complexity
             if random() < norm_fitness:
                 self.mating_pool.append(dna)
 
@@ -67,7 +65,6 @@ class Population:
     # Implementation from https://en.wikipedia.org/wiki/Stochastic_universal_sampling
     def stochastic_universal_sampling(self):
         self.mating_pool = []
-        fitness_psa = []
 
         self.population.sort()
         longest_tour = self.population[-1].fitness
@@ -99,7 +96,7 @@ class Population:
         tournaments = 1000
 
         for _ in range(tournaments):
-            tourney = sorted(sample(self.population, tournament_size))
+            tourney = sample(self.population, tournament_size)
             self.mating_pool.append(min(tourney))  # Best of each tournament
 
         self.best = min(self.mating_pool).genes
@@ -107,12 +104,10 @@ class Population:
     def truncation_selection(self):
         truncation_size = 100  # Top n members
         self.population.sort()
-        self.mating_pool = self.population[:truncation_size]
+        self.mating_pool = self.population[:truncation_size]  # Keep top n
         self.best = self.mating_pool[0].genes
 
     # Normalizing the values to fit [old_lo, old_hi] to [0, 1]
     def normalize(self, val, old_lo, old_hi):
-        if old_hi - old_lo == 0:
-            return 0
+        return 0 if old_hi == old_lo else (val-old_lo) / (old_hi-old_lo)
 
-        return (val-old_lo) / (old_hi-old_lo)
