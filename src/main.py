@@ -23,5 +23,5 @@ for c1 in range(city_count):
         c2_point = (x_coord[c2], y_coord[c2])
         dist_from[c1][c2] = dist(c1_point, c2_point)
 
-simulated_annealing.run(x_coord, y_coord, dist_from, city_count)
+brute_force.run(x_coord, y_coord, dist_from, city_count)
 plotter.show_final()

@@ -1,14 +1,10 @@
-# TODO check if roulette and sus are legit
-# TODO better mutation algorithm
-
-from ctypes import pointer
-from itertools import accumulate
 from dataclasses import dataclass, field
-from random import random, sample, choice, uniform
-from threading import main_thread
+from itertools import accumulate
+from random import choice, random, sample, uniform
 
-from dna import DNA
 import plotter
+from dna import DNA
+
 
 @dataclass
 class Population:
