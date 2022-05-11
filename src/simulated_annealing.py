@@ -4,12 +4,7 @@ import plotter
 
 
 def calc_dist(dist_from, cities):
-    dist = 0
-
-    for c1, c2 in zip(cities[1:], cities[:-1]):
-        dist += dist_from[c1][c2]
-
-    return dist
+    return sum(dist_from[c1][c2] for c1, c2 in zip(cities[1:], cities[:-1]))
 
 
 def evaluate(dist_from, best_tour, x_coord, y_coord, temp):
