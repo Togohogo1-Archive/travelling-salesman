@@ -2,13 +2,13 @@ from math import dist
 from random import sample
 
 import brute_force
-import dp
+import dynamic_programming
 import genetic_algorithm
 import plotter
 import simulated_annealing
 
-city_count = 10
-max_dist = 1000
+city_count = 8
+max_dist = 10
 
 # Initializing coordinates
 x_coord = sample(range(1, max_dist), city_count)
@@ -23,5 +23,14 @@ for c1 in range(city_count):
         c2_point = (x_coord[c2], y_coord[c2])
         dist_from[c1][c2] = dist(c1_point, c2_point)
 
+# dist_from = [
+#     [0, 1, 5, 9, 2],
+#     [1, 0, 9, 9, 7],
+#     [5, 9, 0, 9, 9],
+#     [9, 9, 9, 0, 4],
+#     [2, 7, 9, 4, 0]
+# ]
+
+dynamic_programming.run(x_coord, y_coord, dist_from, city_count)
 brute_force.run(x_coord, y_coord, dist_from, city_count)
 plotter.show_final()
