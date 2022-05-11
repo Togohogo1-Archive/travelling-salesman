@@ -51,8 +51,7 @@ class DNA:
         p2_idx = [0]*city_count
         child = p1_segment[:]  # Copying `p1_segment` into child which includes random subsequence
 
-        # Selecting the subsequence
-        lo, hi = sorted([randint(0, city_count-2), randint(0 , city_count-2)])
+        lo, hi = sorted([randint(0, city_count-2), randint(0 , city_count-2)])  # Selecting the subsequence
         mod = city_count - 1
 
         # Faster than .index
