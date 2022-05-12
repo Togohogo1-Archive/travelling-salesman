@@ -7,7 +7,7 @@ import genetic_algorithm
 import plotter
 import simulated_annealing
 
-city_count = 8
+city_count = 5
 max_dist = 10
 
 # Initializing coordinates
@@ -23,13 +23,14 @@ for c1 in range(city_count):
         c2_point = (x_coord[c2], y_coord[c2])
         dist_from[c1][c2] = dist(c1_point, c2_point)
 
-# dist_from = [
-#     [0, 1, 5, 9, 2],
-#     [1, 0, 9, 9, 7],
-#     [5, 9, 0, 9, 9],
-#     [9, 9, 9, 0, 4],
-#     [2, 7, 9, 4, 0]
-# ]
+# Casebreaker
+dist_from = [
+    [0, 1, 2, 1, 8],
+    [1, 0, 1, 2, 3],
+    [2, 1, 0, 7, 3],
+    [1, 2, 7, 0, 8],
+    [8, 3, 3, 8, 0]
+]
 
 dynamic_programming.run(x_coord, y_coord, dist_from, city_count)
 brute_force.run(x_coord, y_coord, dist_from, city_count)
