@@ -8,7 +8,7 @@ def calc_dist(dist_from, cities):
 
 def evaluate(new_dist, x_coord, y_coord, tour):
     title = f"Distance: {new_dist:.2f}"
-    print(title, tour)
+    # print(title, tour)
     # plotter.plot_path(x_coord, y_coord, tour, title)
     # plotter.draw_path()
 
@@ -25,3 +25,5 @@ def run(x_coord, y_coord, dist_from, city_count):
         if new_dist < min_dist:
             min_dist = new_dist
             evaluate(new_dist, x_coord, y_coord, tour)
+
+    return min_dist

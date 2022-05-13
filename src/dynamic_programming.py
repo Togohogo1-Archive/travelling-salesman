@@ -51,5 +51,5 @@ def run(x_coord, y_coord, dist_from, city_count):
             if dp[last][perm] + dist_from[slast][last] + dist_from[slast][0] < ans:
                 ans = dp[last][perm] + dist_from[slast][last] + dist_from[slast][0]
 
-    print(ans, "_")
+    # print(ans, "_")
     return ans
