@@ -24,14 +24,21 @@ for c1 in range(city_count):
         dist_from[c1][c2] = dist(c1_point, c2_point)
 
 # Casebreaker
-dist_from = [
-    [0, 1, 2, 1, 8],
-    [1, 0, 1, 2, 3],
-    [2, 1, 0, 7, 3],
-    [1, 2, 7, 0, 8],
-    [8, 3, 3, 8, 0]
-]
+# dist_from = [
+#     [0, 1, 2, 1, 8],
+#     [1, 0, 1, 2, 3],
+#     [2, 1, 0, 7, 3],
+#     [1, 2, 7, 0, 8],
+#     [8, 3, 3, 8, 0]
+# ]
+
+# dist_from = [
+#     [0, 1, 5, 6],
+#     [1, 0, 4, 4],
+#     [5, 4, 0, 3],
+#     [6, 4, 3, 0]
+# ]
 
 dynamic_programming.run(x_coord, y_coord, dist_from, city_count)
 brute_force.run(x_coord, y_coord, dist_from, city_count)
-plotter.show_final()
+# plotter.show_final()
