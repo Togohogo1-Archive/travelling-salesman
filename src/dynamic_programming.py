@@ -1,19 +1,10 @@
-from pprint import pprint
-from math import log2
-'''
-(1 << index) | num   to turn on bit at index N
-(1 << index) & num   to check of bit at index N is 1
-
-dp[i][j] = min dist of city sequence that ends on i with length j
+import plotter
 
 
-'''
-def evalutate():
-    ...
-
-
-def calc_dist(dist_from, cities):
-    return sum(dist_from[c1][c2] for c1, c2 in zip(cities[1:], cities[:-1]))
+def evaluate(new_dist, x_coord, y_coord, tour):
+    title = f"Distance: {new_dist:.2f}"
+    plotter.plot_path(x_coord, y_coord, tour, title)
+    plotter.draw_path()
 
 
 def find_path(trace, slast, mask):
@@ -22,12 +13,10 @@ def find_path(trace, slast, mask):
 
     while cur != 0:
         mask ^= 1 << cur-1
-        cur = trace[mask]
+        cur = trace[cur][mask]
         path.append(cur)
 
     return path
-
-
 
 
 def comb(ans, idx, maxn, bits):
@@ -43,7 +32,7 @@ def comb(ans, idx, maxn, bits):
 
 def run(x_coord, y_coord, dist_from, city_count):
     dp = [[float("inf")]*(2**city_count) for _ in range(city_count)]
-    trace = [0]*(2**city_count)
+    trace = [[0]*(2**city_count) for _ in range(city_count)]
 
     # Initialization
     for last in range(1, city_count):
@@ -61,7 +50,7 @@ def run(x_coord, y_coord, dist_from, city_count):
                         if (1 << slast-1) & perm:  # Second last city must be in `perm`
                             if dp[slast][(1 << slast-1) ^ perm] + dist_from[slast][last] < best:
                                 best = dp[slast][(1 << slast-1) ^ perm] + dist_from[slast][last]
-                                trace[perm] = slast
+                                trace[last][perm] = slast
 
                     dp[last][perm] = best
 
@@ -74,17 +63,5 @@ def run(x_coord, y_coord, dist_from, city_count):
                 ans = dp[last][perm] + dist_from[last][0]
                 slast = last
 
-
-    # print(ans, "_")
-    # print(trace, slast)
-    lesus = find_path(trace, slast, 2**(city_count-1)-1)
-    # print(calc_dist(dist_from, lesus))
-
-    if calc_dist(dist_from, lesus) != ans:
-        print(lesus)
-        pprint(trace)
-        pprint(dp)
-        pprint(dist_from)
-        print(ans)
-
-    return ans
+    lesus = find_path(trace, slast, 2**(city_count-1)-1)  # Joshgone requires lesus name
+    evaluate(ans, x_coord, y_coord, lesus)
