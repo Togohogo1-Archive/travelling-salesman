@@ -4,22 +4,24 @@ import dynamic_programming
 import brute_force
 
 
-for i in range(100):
-    city_count = 3
+for i in range(10000):
+    city_count = randint(3, 10)
 
     dist_from = [[0]*city_count for _ in range(city_count)]
 
     for c1 in range(city_count):
         for c2 in range(c1, city_count):
             if c1 != c2:
-                dist_from[c1][c2] = dist_from[c2][c1] = randint(1, 10)
+                dist_from[c1][c2] = dist_from[c2][c1] = randint(100, 200)
 
     a = dynamic_programming.run(None, None, dist_from, city_count)
-    b = brute_force.run(None, None, dist_from, city_count)
+    # b = brute_force.run(None, None, dist_from, city_count)
 
-    if a != b:
-        print("dp ->", a, "bf ->", b, "_")
-        pprint(dist_from)
+    # if a != b:
+    #     print("dp ->", a, "bf ->", b, "_")
+    #     pprint(dist_from)
+    # elif a == b:
+    #     print("AC")
 
 '''
 dp -> 27 bf -> 20 _
