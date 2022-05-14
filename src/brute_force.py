@@ -26,4 +26,5 @@ def run(x_coord, y_coord, dist_from, city_count):
             min_dist = new_dist
             evaluate(new_dist, x_coord, y_coord, tour)
 
+    # print(min_dist)
     return min_dist

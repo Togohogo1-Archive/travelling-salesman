@@ -46,10 +46,8 @@ def run(x_coord, y_coord, dist_from, city_count):
 
     for last in range(1, city_count):
         for perm in comb(0, 0, city_count-1, city_count-2):
-            slast = int(log2((1 << city_count-1)-1 ^ perm))
+            if dp[last][perm] + dist_from[last][0] < ans:
+                ans = dp[last][perm] + dist_from[last][0]
 
-            if dp[last][perm] + dist_from[slast][last] + dist_from[slast][0] < ans:
-                ans = dp[last][perm] + dist_from[slast][last] + dist_from[slast][0]
-
-    # print(ans, "_")
+    print(ans, "_")
     return ans

@@ -4,8 +4,8 @@ import dynamic_programming
 import brute_force
 
 
-for i in range(10):
-    city_count = 4
+for i in range(100):
+    city_count = 3
 
     dist_from = [[0]*city_count for _ in range(city_count)]
 
