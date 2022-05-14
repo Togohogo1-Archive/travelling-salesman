@@ -85,7 +85,7 @@ class DNA:
         child = [-1]*(city_count-1)
 
         # Faster than .index
-        for i in range(city_count - 1):
+        for i in range(city_count-1):
             p1_idx[p1_segment[i]] = i
             p2_idx[p2_segment[i]] = i
 
