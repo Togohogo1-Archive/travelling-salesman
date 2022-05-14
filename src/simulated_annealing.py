@@ -7,9 +7,9 @@ def calc_dist(dist_from, cities):
     return sum(dist_from[c1][c2] for c1, c2 in zip(cities[1:], cities[:-1]))
 
 
-def evaluate(dist_from, best_tour, x_coord, y_coord, temp):
+def evaluate(dist_from, best_tour, x_coord, y_coord, temp, solution):
     title = f"Temperature: {temp:.2f}, Distance: {calc_dist(dist_from, best_tour):.2f}"
-    plotter.plot_path(x_coord, y_coord, best_tour, title)
+    plotter.plot_path(x_coord, y_coord, best_tour, title, solution)
     plotter.draw_path()
 
 
@@ -30,7 +30,7 @@ def metropolis(dist_from, old, new, temp):
         old[:] = new
 
 
-def run(x_coord, y_coord, dist_from, city_count):
+def run(x_coord, y_coord, dist_from, city_count, solution=None):
     t0 = 1000
     best_tour = [0] + sample(range(1, city_count), city_count-1) + [0]
 
@@ -39,4 +39,5 @@ def run(x_coord, y_coord, dist_from, city_count):
         next_tour = neighbour(best_tour, city_count)
         metropolis(dist_from, best_tour, next_tour, t0)
 
-    evaluate(dist_from, best_tour, x_coord, y_coord, t0)
+    evaluate(dist_from, best_tour, x_coord, y_coord, t0, solution)
+    return best_tour

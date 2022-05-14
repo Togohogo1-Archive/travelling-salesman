@@ -25,10 +25,10 @@ class Population:
             tour_dist = self.calc_fitness(dist_from, tour)
             self.population.append(DNA(tour_dist, tour))
 
-    def evaluate(self, dist_from, x_coord, y_coord):
+    def evaluate(self, dist_from, x_coord, y_coord, solution):
         self.generation += 1
         title = f"Generation: {self.generation}, Distance: {self.calc_fitness(dist_from, self.best):.2f}"
-        plotter.plot_path(x_coord, y_coord, self.best, title)
+        plotter.plot_path(x_coord, y_coord, self.best, title, solution)
         plotter.draw_path()
 
     # Creating children chromosomes from parents
@@ -44,7 +44,7 @@ class Population:
 
     # Mating pool of selected individuals creates a new population
     def select(self):
-        self.stochastic_universal_sampling()
+        self.roulette_wheel_selection()
 
     def roulette_wheel_selection(self):
         self.mating_pool = []

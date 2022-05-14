@@ -7,8 +7,8 @@ import genetic_algorithm
 import plotter
 import simulated_annealing
 
-city_count = 10
-max_dist = 100
+city_count = 15
+max_dist = 1000
 
 # Initializing coordinates
 x_coord = sample(range(1, max_dist), city_count)
@@ -23,5 +23,6 @@ for c1 in range(city_count):
         c2_point = (x_coord[c2], y_coord[c2])
         dist_from[c1][c2] = dist(c1_point, c2_point)
 
-dynamic_programming.run(x_coord, y_coord, dist_from, city_count)
+solution = dynamic_programming.run(x_coord, y_coord, dist_from, city_count)
+genetic_algorithm.run(x_coord, y_coord, dist_from, city_count, solution)
 plotter.show_final()

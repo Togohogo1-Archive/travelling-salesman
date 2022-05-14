@@ -1,9 +1,9 @@
 import plotter
 
 
-def evaluate(new_dist, x_coord, y_coord, tour):
+def evaluate(new_dist, x_coord, y_coord, tour, solution):
     title = f"Distance: {new_dist:.2f}"
-    plotter.plot_path(x_coord, y_coord, tour, title)
+    plotter.plot_path(x_coord, y_coord, tour, title, solution)
     plotter.draw_path()
 
 
@@ -30,45 +30,47 @@ def comb(ans, idx, maxn, bits):
     yield from comb(ans, idx+1, maxn, bits)
 
 
-# https://en.wikipedia.org/wiki/Held%E2%80%93Karp_algorithm
-def run(x_coord, y_coord, dist_from, city_count):
+# https://en.wikipedia.org/wiki/Held–Karp_algorithm
+def run(x_coord, y_coord, dist_from, city_count, solution=None):
     # dp[i][j] = min distance staring from city 0 -> subset j -> last city i
     dp = [[float("inf")]*(2**city_count) for _ in range(city_count)]
 
-    # trace[i][j] = 2nd last city visited in best subset j where the last city visited is i
+    # trace[i][j] = 2nd last city visited from best path 0 -> subset j -> last city i
     trace = [[0]*(2**city_count) for _ in range(city_count)]
 
     # Initialization
     for last in range(1, city_count):
         dp[last][0] = dist_from[0][last]
 
-    # Do dp
-    for cities in range(1, city_count):
-        for perm in comb(0, 0, city_count-1, cities):  # 2^n part combined with previous for loop
-            for last in range(1, city_count):  # Last city
-                if not (1 << last-1) & perm:  # Last city not in `perm`
-                    best = float("inf")
+    # Can loop like this since subsets of every masked subset will have been previously computed
+    for perm in range(1, 2**city_count):
+        for last in range(1, city_count):  # Last city
+            if not (1 << last-1) & perm:  # Last city not in `perm`
+                best = float("inf")
 
-                    for slast in range(1, city_count):  # Second last city
-                        if (1 << slast-1) & perm:  # Second last city must be in `perm`
+                for slast in range(1, city_count):  # Second last city
+                    if (1 << slast-1) & perm:  # Second last city must be in `perm`
 
-                            # Previous dp state: set with second last as the last
-                            # All previous states will end with `last`, hence find the minimum distance across all states
-                            if dp[slast][(1 << slast-1) ^ perm] + dist_from[slast][last] < best:
-                                best = dp[slast][(1 << slast-1) ^ perm] + dist_from[slast][last]
-                                trace[last][perm] = slast
+                        # Previous dp state: 0 -> subset `perm` absent of `slast` -> `slast`
+                        # All previous states will end with `slast` -> `last`
+                        if dp[slast][(1 << slast-1) ^ perm] + dist_from[slast][last] < best:
+                            best = dp[slast][(1 << slast-1) ^ perm] + dist_from[slast][last]
+                            trace[last][perm] = slast
 
-                    dp[last][perm] = best
+                dp[last][perm] = best
 
     ans = float("inf")
     slast = -1
+    full = 2**(city_count-1) - 1  # Mask of full set of cities excluding 0
 
-    # Finding shortest tour by connecting all last cities back to 0
+    # Finding shortest tour by connecting all possible last cities back to 0 for each nearly completed `perm`
     for last in range(1, city_count):
-        for perm in comb(0, 0, city_count-1, city_count-2):
+        for cut in range(1, city_count):
+            perm = full ^ (1 << cut-1)  # Generates all integers with `city_count` bits as 1 and having len `city_count-1`
             if dp[last][perm] + dist_from[last][0] < ans:
                 ans = dp[last][perm] + dist_from[last][0]
                 slast = last
 
-    lesus = find_path(trace, slast, 2**(city_count-1)-1)  # Joshgone requires lesus name
-    evaluate(ans, x_coord, y_coord, lesus)
+    lesus = find_path(trace, slast, full)  # Joshgone requires lesus
+    evaluate(ans, x_coord, y_coord, lesus, solution)
+    return lesus
