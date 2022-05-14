@@ -1,3 +1,4 @@
+from pprint import pprint
 from math import log2
 '''
 (1 << index) | num   to turn on bit at index N
@@ -7,6 +8,26 @@ dp[i][j] = min dist of city sequence that ends on i with length j
 
 
 '''
+def evalutate():
+    ...
+
+
+def calc_dist(dist_from, cities):
+    return sum(dist_from[c1][c2] for c1, c2 in zip(cities[1:], cities[:-1]))
+
+
+def find_path(trace, slast, mask):
+    path = [0, slast]
+    cur = slast
+
+    while cur != 0:
+        mask ^= 1 << cur-1
+        cur = trace[mask]
+        path.append(cur)
+
+    return path
+
+
 
 
 def comb(ans, idx, maxn, bits):
@@ -22,6 +43,7 @@ def comb(ans, idx, maxn, bits):
 
 def run(x_coord, y_coord, dist_from, city_count):
     dp = [[float("inf")]*(2**city_count) for _ in range(city_count)]
+    trace = [0]*(2**city_count)
 
     # Initialization
     for last in range(1, city_count):
@@ -31,7 +53,7 @@ def run(x_coord, y_coord, dist_from, city_count):
     for cities in range(1, city_count):
         for perm in comb(0, 0, city_count-1, cities):  # 2^n part
             for last in range(1, city_count):  # Last city
-                if not (1 << last-1) & perm:  # Last city not in `perm``
+                if not (1 << last-1) & perm:  # Last city not in `perm`
                     best = float("inf")
 
                     for slast in range(1, city_count):  # Second last city
@@ -39,15 +61,30 @@ def run(x_coord, y_coord, dist_from, city_count):
                         if (1 << slast-1) & perm:  # Second last city must be in `perm`
                             if dp[slast][(1 << slast-1) ^ perm] + dist_from[slast][last] < best:
                                 best = dp[slast][(1 << slast-1) ^ perm] + dist_from[slast][last]
+                                trace[perm] = slast
 
                     dp[last][perm] = best
 
     ans = float("inf")
+    slast = -1
 
     for last in range(1, city_count):
         for perm in comb(0, 0, city_count-1, city_count-2):
             if dp[last][perm] + dist_from[last][0] < ans:
                 ans = dp[last][perm] + dist_from[last][0]
+                slast = last
 
-    print(ans, "_")
+
+    # print(ans, "_")
+    # print(trace, slast)
+    lesus = find_path(trace, slast, 2**(city_count-1)-1)
+    # print(calc_dist(dist_from, lesus))
+
+    if calc_dist(dist_from, lesus) != ans:
+        print(lesus)
+        pprint(trace)
+        pprint(dp)
+        pprint(dist_from)
+        print(ans)
+
     return ans
