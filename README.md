@@ -9,7 +9,7 @@ Various methods of solving the Travelling Salesman Problem with visualization
 - how to use plotter and solution (with gif)
 
 ```
-   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20
+    0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20
 0   0  94  76 141  91  60 120 145  91  74  90  55 145 108  41  49  33 151  69 111  24
 1   0  94  76 141  91  60 120 145  91  74  90  55 145 108  41  49  33 151  69 111  24
 2   0  94  76 141  91  60 120 145  91  74  90  55 145 108  41  49  33 151  69 111  24
