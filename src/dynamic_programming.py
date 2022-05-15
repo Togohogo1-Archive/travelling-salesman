@@ -18,18 +18,6 @@ def find_path(trace, slast, mask):
     return path
 
 
-# Generates all integers with `bits` bits as 1 and having len `maxn`
-def comb(ans, idx, maxn, bits):
-    if idx == maxn:
-        if bits == 0:
-            yield ans
-
-        return
-
-    yield from comb(ans ^ (1 << idx), idx+1, maxn, bits-1)
-    yield from comb(ans, idx+1, maxn, bits)
-
-
 # https://en.wikipedia.org/wiki/Held–Karp_algorithm
 def run(x_coord, y_coord, dist_from, city_count, solution=None):
     # dp[i][j] = min distance staring from city 0 -> subset j -> last city i
