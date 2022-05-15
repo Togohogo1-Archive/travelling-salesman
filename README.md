@@ -4,6 +4,7 @@ Various methods of solving the Travelling Salesman Problem with visualization
 - setup instructions for python and c
 - explain what the TSP is
 - explain how sample data should return 1060 with [0, 20, 15, 2, 3, 12, 17, 9, 10, 5, 4, 19, 7, 1, 13, 8, 6, 18, 11, 16, 14, 0] or reversed
+- outline the various methods to solve it (with links so i dont have to do too much explanation)
 - Intended use |comparing the effectiveness of heruistics (ga ans sa) to a classical technique (dp or bf)
 - how to just plot one (with gif)
 - how to use plotter and solution (with gif)
