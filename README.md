@@ -1,7 +1,7 @@
 # Travelling Salesman Problem
 Various methods of solving the Travelling Salesman Problem with visualization
 
-- setup instructions
+- setup instructions for python and c
 - explain what the TSP is
 - explain how sample data should return 1060 with [0, 20, 15, 2, 3, 12, 17, 9, 10, 5, 4, 19, 7, 1, 13, 8, 6, 18, 11, 16, 14, 0] or reversed
 - Intended use |comparing the effectiveness of heruistics (ga ans sa) to a classical technique (dp or bf)

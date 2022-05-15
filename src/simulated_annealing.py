@@ -39,5 +39,5 @@ def run(x_coord, y_coord, dist_from, city_count, solution=None):
         next_tour = neighbour(best_tour, city_count)
         metropolis(dist_from, best_tour, next_tour, temperature)
 
-    evaluate(dist_from, best_tour, x_coord, y_coord, temperature, solution)
+    evaluate(dist_from, best_tour, x_coord, y_coord, temperature, solution)  # Move in while loop to visualize evolution (slow)
     return best_tour

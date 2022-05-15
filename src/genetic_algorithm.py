@@ -12,3 +12,5 @@ def run(x_coord, y_coord, dist_from, city_count, solution=None):
         population.select()
         population.evaluate(dist_from, x_coord, y_coord, solution)
         population.crossover(dist_from, city_count)  # And mutate
+
+    return population.best
