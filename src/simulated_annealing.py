@@ -31,13 +31,13 @@ def metropolis(dist_from, old, new, temp):
 
 
 def run(x_coord, y_coord, dist_from, city_count, solution=None):
-    t0 = 1000
+    temperature = 1000
     best_tour = [0] + sample(range(1, city_count), city_count-1) + [0]
 
-    while t0 > 1:
-        t0 *= 0.9999  # Geom sequence
+    while temperature > 1:
+        temperature *= 0.9999  # Geom sequence
         next_tour = neighbour(best_tour, city_count)
-        metropolis(dist_from, best_tour, next_tour, t0)
+        metropolis(dist_from, best_tour, next_tour, temperature)
 
-    evaluate(dist_from, best_tour, x_coord, y_coord, t0, solution)
+    evaluate(dist_from, best_tour, x_coord, y_coord, temperature, solution)
     return best_tour
