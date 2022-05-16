@@ -26,5 +26,4 @@ Various methods of solving the Travelling Salesman Problem with visualization
 ### Todo
 - Finish the readme with proper images
 - Write up c version of dynamic programming solution
-- Description of each selection method
-- Compare my solution with google OCR
+- Compare my sim anneal solution with google OCR

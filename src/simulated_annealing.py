@@ -21,15 +21,18 @@ def neighbour(best_tour, city_count):
     return next_tour
 
 
-# Acceptance probability function
+# Acceptance probability function via Metropolis-Hastings algorithm
 def metropolis(dist_from, old, new, temp):
     dist_old = calc_dist(dist_from, old)
     dist_new = calc_dist(dist_from, new)
 
+    # if `dist_old - dist_new` >= 0, new tour better than old tour
+    # Otherwise, the greater the temp, the more likely it is to switch to a worse tour (to potentially reach a better local min)
     if random() < exp((dist_old-dist_new)/temp):
         old[:] = new
 
 
+# Source: https://www.cec.uchile.cl/cinetica/pcordero/MC_libros/NumericalRecipesinC.pdf
 def run(x_coord, y_coord, dist_from, city_count, solution=None):
     temperature = 100
     r = 0.99999

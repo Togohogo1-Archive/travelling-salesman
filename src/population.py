@@ -62,7 +62,7 @@ class Population:
 
         self.best = min(self.mating_pool).genes
 
-    # https://en.wikipedia.org/wiki/Stochastic_universal_sampling
+    # Source: https://en.wikipedia.org/wiki/Stochastic_universal_sampling
     def stochastic_universal_sampling(self):
         self.mating_pool = []
 

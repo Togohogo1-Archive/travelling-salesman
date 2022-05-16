@@ -18,7 +18,7 @@ def find_path(trace, slast, mask):
     return path
 
 
-# https://en.wikipedia.org/wiki/Held–Karp_algorithm
+# Source: https://en.wikipedia.org/wiki/Held–Karp_algorithm
 def run(x_coord, y_coord, dist_from, city_count, solution=None):
     # dp[i][j] = min distance staring from city 0 -> subset j -> last city i
     dp = [[float("inf")]*(2**city_count) for _ in range(city_count)]
