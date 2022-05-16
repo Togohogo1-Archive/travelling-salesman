@@ -26,3 +26,5 @@ Various methods of solving the Travelling Salesman Problem with visualization
 ### Todo
 - Finish the readme with proper images
 - Write up c version of dynamic programming solution
+- Multithreading sim annealing/plotting once every 10
+- Description of each selection method (make sim annealing visualization faster)
