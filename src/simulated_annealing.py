@@ -33,12 +33,18 @@ def metropolis(dist_from, old, new, temp):
 def run(x_coord, y_coord, dist_from, city_count, solution=None):
     temperature = 100
     r = 0.99999
+    ε = 0.001
     best_tour = [0] + sample(range(1, city_count), city_count-1) + [0]
 
     while temperature > 1:
-        temperature *= r  # Geom sequence
+        temperature *= r  # Geom sequence, T0(r)^x
         next_tour = neighbour(best_tour, city_count)
+
+        # If exact temperature close to rounded temperature (less than an absolute difference of `temperature - ε`)
+        # Smaller `ε` results in less evaluations
+        if abs(temperature-ε) <= int(temperature):
+            evaluate(dist_from, best_tour, x_coord, y_coord, temperature, solution)
+
         metropolis(dist_from, best_tour, next_tour, temperature)
 
-    evaluate(dist_from, best_tour, x_coord, y_coord, temperature, solution)  # Move in while loop to visualize evolution (slow)
     return best_tour
