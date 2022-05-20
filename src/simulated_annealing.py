@@ -32,7 +32,7 @@ def metropolis(dist_from, old, new, temp):
         old[:] = new
 
 
-# Source: https://www.cec.uchile.cl/cinetica/pcordero/MC_libros/NumericalRecipesinC.pdf
+# Source: https://www.cec.uchile.cl/cinetica/pcordero/MC_libros/NumericalRecipesinC.pdf, p. 444
 def run(x_coord, y_coord, dist_from, city_count, solution=None):
     temperature = 100
     r = 0.99999
